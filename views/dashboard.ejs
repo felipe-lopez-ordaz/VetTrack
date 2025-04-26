@@ -1,15 +1,57 @@
 <%- include("partials/header") %>
 
-<h1>Dashboard</h1>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <h2>Dashboard</h2>
+        <nav>
+        <ul>
+            <li><a href="/add-animal">Add Animal</a></li>
+            <li><a href="/animal-profile">Animal Profile</a></li>
+            <li><a href="/animal-update">Update Animal</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
 
+    </aside>
 
+    <main class="main-content">
+        <header class="main-header">
+            <div>
+                <h1>Animals DataBase</h1>
+                <p>Today is, <%= New Date().toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'})%></p>
+            </div>
 
-<nav>
-    <a href="/add-animal">Add an Animal</a>
-    <a href="/animal-profile"> Animal Profile</a>
-    <a href="logout">Logout</a>
-</nav>
+            <button class="add-button" onclick="window.location.href='/add-animal'">Add Animal</button>
+        </header>
 
+        <section class="table-section">
+            <table>
+                <thread>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>TYPE</th>
+                        <th>BREED</th>
+                        <th>DATE OF BIRTH</th>
+                        <th>ACTION</th>
 
+                    </tr>
+                </thread>
+                <tbody>
+                    <% animals.forEach(animal => { %>
+                        <tr>
+                            <td><%= animal._id.toString().padStart(3,'0') %></td>
+                            <td><%= animal.name %></td>
+                            <td><%= animal.type %></td>
+                            <td><%= animal.breed %></td>
+                            <td><%= animal.date_of_birth.toISOString().slice(0,10) %></td>
+                            <td>
+                                <a href="/animal-profile/<%= animal._id %>" class="view-button">View</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </section>
 
-<%-include("partials/footer") %>4
+<%-include("partials/footer") %>
