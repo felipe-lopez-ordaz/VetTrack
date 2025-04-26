@@ -18,7 +18,7 @@
         <header class="main-header">
             <div>
                 <h1>Animals DataBase</h1>
-                <p>Today is, <%= New Date().toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'})%></p>
+                <p>Today is, <%= new Date().toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'})%></p>
             </div>
 
             <button class="add-button" onclick="window.location.href='/add-animal'">Add Animal</button>
@@ -26,7 +26,7 @@
 
         <section class="table-section">
             <table>
-                <thread>
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>NAME</th>
@@ -36,11 +36,11 @@
                         <th>ACTION</th>
 
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                     <% animals.forEach(animal => { %>
                         <tr>
-                            <td><%= animal._id.toString().padStart(3,'0') %></td>
+                            <td><%= animal.id.toString().padStart(3,'0') %></td>
                             <td><%= animal.name %></td>
                             <td><%= animal.type %></td>
                             <td><%= animal.breed %></td>
