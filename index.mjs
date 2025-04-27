@@ -32,7 +32,7 @@ app.use(session({
 
 
 app.get('/', async(req, res) => {
-    res.render('login.ejs')
+    res.render('home.ejs')
 });
 
 
@@ -55,6 +55,7 @@ app.post('/login', async (req, res) => {
 
     if (match) {
         req.session.userAuthenticated = true;
+        req.session.username = username;
         res.render('dashboard.ejs', {"username": username});
     } else {
         res.render('login.ejs', {"error":"Wrong credentials!"})
@@ -67,14 +68,10 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.get('/dashboard', async(req, res) => {
+app.get('/dashboard',isAuthenticated, async(req, res) => {
 
-    if(req.session.userAuthenticated){
-        res.render('/dashboard')
-    }
-    else{
-        res.redirect("/");
-    }
+    const[animals] = await conn.query(`SELECT * FROM animals`);
+    res.render('dashboard', {username: req.session.username, animals: animals});
 });
 
 
@@ -90,3 +87,11 @@ app.get("/dbTest", async(req, res) => {
 app.listen(3000, ()=>{
     console.log("Express server running")
 })
+
+function isAuthenticated(req, res, next) {
+    if (req.session.userAuthenticated) {
+        next();
+    } else {
+        res.redirect("/");
+    }
+}
