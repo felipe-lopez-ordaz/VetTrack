@@ -1,18 +1,30 @@
-<%- include("partials/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include("partials/header") %>
 
 <div class="dashboard-container">
     <aside class="sidebar">
         <h2>Dashboard</h2>
         <nav>
         <ul>
-            <li><a href="/add-animal">Add Animal</a></li>
-            <li><a href="/animal-profile">Animal Profile</a></li>
-            <li><a href="/animal-update">Update Animal</a></li>
+            <li><a href="/addAnimal">Add Animal</a></li>
+            <li><a href="/addVisit"> Add Visit</a></li>
+            <li><a href="/animalProfile">Animal Profile</a></li>
+            <li><a href="/editAnimal">Update Animal</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
 
     </aside>
+
+    <!--Show all animals and the options-->
+    <!--Add search bar here!-->
 
     <main class="main-content">
         <header class="main-header">
@@ -55,3 +67,6 @@
         </section>
 
 <%-include("partials/footer") %>
+    
+</body>
+</html>
