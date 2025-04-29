@@ -14,10 +14,10 @@ app.use(express.urlencoded({extended:true}));
 
 //setting up database connection pool
 const pool = mysql.createPool({
-    host: "felipe-lopez-ordaz.site",
-    user: "felipelo_webuser",
+    host: "samjacobs.site",
+    user: "samjacob_vetFinal",
     password: "cst-336",
-    database: "felipelo_quotes",
+    database: "samjacob_vettrack",
     connectionLimit: 10,
     waitForConnections: true
 });
@@ -61,6 +61,10 @@ app.get("/logout", (req, res) => {
     res.render('home.ejs');
 }
 );
+
+app.get('/login', (req, res) => {
+    res.render('login.ejs'); // Render the login page
+});
 
 app.post('/login', async (req, res) => {
     //using POST so info sent in body
