@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
  
 
 app.get('/dashboard', isAuthenticated, (req, res) => {
-    res.render("dashboard.ejs",{firstName:req.session.firstName});
+        res.render('dashboard.ejs', { username: req.session.username });
 });
 
 
@@ -70,32 +70,37 @@ app.post('/login', async (req, res) => {
     //using POST so info sent in body
     let username = req.body.username;
     let password = req.body.password;
+    console.log("Here: "+username, password);
 
     //let hashpassword = "$2b$10$MJQarc6ymwsojxTIUAAeUOEAms4mgxHRAehMwg6rqvE.SZGY9jmp2"
 
     let hashedPassword;
-    let sql = 'SELECT * FROM admin WHERE username = ?';
+    let sql = `SELECT * FROM user WHERE username = ?`;
     const [rows] = await conn.query(sql, [username]);
     if(rows.length > 0){ //username was found!
-        hashedPassword = rows[0].password;
+        hashedPassword = rows[0].password_hash;
+        console.log("Found: "+hashedPassword);
     }
+    console.log("Hashed: "+hashedPassword);
 
     const match = await bcrypt.compare(password, hashedPassword);
     
     if(match){
         req.session.userAuthenticated = true;
-        req.session.firstName = rows[0].firstName;
-        res.render('home.ejs');
+        req.session.username = rows[0].username;
+        console.log("User: "+req.session.username);
+        //req.session.firstName = rows[0].firstName;s
+        //res.render('dashboard.ejs');
+        res.redirect('/dashboard');
     }
     else{
         res.render('login.ejs',{"error":"Invalid username or password"});
     }
 });
 
-
 app.get('/visits', isAuthenticated, async(req, res) => {
     //change this to select visits
-    let sql = "SELECT quoteId,quote,authorId,category,likes FROM quotes ORDER BY quoteId";
+    let sql = `SELECT visit_id,visit_date,reason,animal_id FROM visit`;
     const [rows] = await conn.query(sql);
     console.log(rows);
     res.render('visits.ejs', {rows});
@@ -104,10 +109,10 @@ app.get('/visits', isAuthenticated, async(req, res) => {
 //display the list of animals
 app.get('/animals', isAuthenticated, async(req, res) => {
     // change this to select animals
-    let sql = "SELECT authorId,firstName,lastName,dob,dod,biography,sex,portrait,country,profession FROM authors ORDER BY lastName";
-    const [rows] = await conn.query(sql);
-    console.log(rows);
-    res.render('animals.ejs', {rows});
+    let sql = `SELECT name, breed,dob,owner_id,animal_id FROM animal`;
+    const [animals] = await conn.query(sql);
+    console.log(animals);
+    res.render('animals.ejs', {animals});
  });
 
 app.get('/addVisits', isAuthenticated, async(req, res) => {
