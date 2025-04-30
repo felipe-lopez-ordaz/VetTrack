@@ -7,5 +7,22 @@
 </head>
 <body>
     <h1>Add Visits</h1>
+
+    <form method="POST" action="/addVisits">
+    Animal:
+    <select name="animal">
+        <% for(let animal of animals) { %>
+           <option value=<%= animal.animal_id %>>     <%=animal.name%>  </option>
+        <% } %>
+    </select>
+    <br><br>
+    Date:
+    <input type="date" name="date">
+    <br><br>
+    Reason for Visit:
+    <textarea name="reason"></textarea>
+    <br><br>
+    <button>Submit</button>
+    </form>
 </body>
 </html>

@@ -7,5 +7,33 @@
 </head>
 <body>
     <h1> Add Animal</h1>
+
+    <form method="POST" action="/addAnimal">
+        Owner Phone Number:
+        <select name="owner">
+            <% for(let owner of owners) { %>
+               <option value=<%= owner.owner_id %>>     <%=owner.phone_number%>  </option>
+            <% } %>
+        </select>
+        <br>
+        <br>
+
+        Name:
+        <input type="text" name="name">
+        <br>
+        <br>
+
+        Breed:
+        <input type="text" name="breed">
+        <br>
+        <br>
+
+        Date of Birth:
+        <input type="date" name="dob">
+        <br>
+        <br>
+
+        <button>Submit</button>
+        </form>
 </body>
 </html>

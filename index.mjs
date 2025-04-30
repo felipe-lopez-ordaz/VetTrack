@@ -117,51 +117,45 @@ app.get('/animals', isAuthenticated, async(req, res) => {
 
 app.get('/addVisits', isAuthenticated, async(req, res) => {
     //change this to select visits
-    let sql = "SELECT authors.authorId, authors.firstName, authors.lastName FROM authors ORDER BY authors.lastName";
-    let sql2 = "SELECT DISTINCT category FROM quotes";
-    const [authors] = await conn.query(sql);
-    console.log(authors);
-    const [categories] = await conn.query(sql2);
-    console.log(categories);
-    res.render('addVisits.ejs', {authors,categories});
+    let sql = 'SELECT * FROM animal'
+    const [animals] = await conn.query(sql);
+
+    res.render('addVisits.ejs', {animals})
  }
 );
 
 app.post('/addVisits', isAuthenticated, async(req, res) => {
-    // change this to select visits
-    let quote = req.body.quote;
-    let authorId = req.body.authorId;
-    let category = req.body.category;
-    let likes = req.body.likes;
-    console.log(quote, authorId,category,likes);
-    let sql = `INSERT INTO quotes (quote, authorId,category,likes) VALUES (?, ?,?,?)`;
-    let sqlParams = [quote, authorId, category, likes];
+    let animal = req.body.animal;
+    let date = req.body.date;
+    let reason = req.body.reason;
+
+
+
+    let sql = `INSERT INTO visit (animal_id,visit_date,reason) VALUES (?, ?,?)`;
+    let sqlParams = [animal, date, reason];
     const [rows] = await conn.query(sql, sqlParams);
-    console.log(rows);
+
     res.redirect('/visits');
  });
 
-app.get('/addAnimal', isAuthenticated, (req, res) => {
-    res.render('addAnimal.ejs'); 
+app.get('/addAnimal', isAuthenticated, async(req, res) => {
+    let sql = `SELECT * FROM owner`;
+    const [owners] = await conn.query(sql);
+    res.render('addAnimal.ejs', {owners}); 
 });
 
 
 app.post('/addAnimal', isAuthenticated, async(req, res) => {
     // change this to select animals
-    let fn = req.body.firstName;
-    let ln = req.body.lastName;
-    let dob = req.body.dob;
-    let dod = req.body.dod;
-    let sex = req.body.sex;
-    let profession = req.body.profession;
-    let country = req.body.country;
-    let portrait = req.body.portrait;
-    let bio = req.body.biography;
-    console.log(fn, ln,dob,dod,sex, profession,country,portrait,bio);
-    let sql = `INSERT INTO authors (firstName, lastName,dob,dod,sex,profession,country,portrait,biography) VALUES (?, ?,?,?,?,?,?,?,?)`;
-    let sqlParams = [fn, ln,dob,dod,sex, profession,country,portrait,bio];
+    let name = req.body.name;
+    let breed = req.body.breed;
+    let dob = req. body.dob;
+    let owner = req.body.owner;
+ 
+    let sql = `INSERT INTO animal (name, breed, dob, owner_id) VALUES (?)`;
+    let sqlParams = [[name, breed, dob, owner]];
     const [rows] = await conn.query(sql, sqlParams);
-    console.log(rows);
+
   res.redirect('/animals');
  });
 
