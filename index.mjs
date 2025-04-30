@@ -62,9 +62,9 @@ app.get('/searchBar', isAuthenticated, async(req, res) => {
     let searchParam = req.query.search;
     let sql = `SELECT *
                 FROM owner o JOIN animal a ON o.owner_id = a.owner_id
-                WHERE name LIKE ?
-                    OR breed LIKE ?
-                     OR phone_number LIKE ?`;
+                WHERE UPPER(name) LIKE UPPER(?)
+                    OR UPPER(breed) LIKE UPPER(?)
+                     OR UPPER(phone_number) LIKE UPPER(?)`;
     let sqlParams = [`%${searchParam}%`,`%${searchParam}%`,`%${searchParam}%`]
     const [data] = await conn.query(sql, sqlParams);
     res.render('dashboard.ejs', { username: req.session.username, data });
