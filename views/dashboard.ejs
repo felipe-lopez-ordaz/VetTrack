@@ -1,19 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Welcome, <%= username %>!</h1>
+<%- include("partials/header") %>
 
-    <a href="/animals">View Animals</a>
-    <a href="/visits">View Visits</a>
-    <a href="/addAnimal">Add Animal</a>
-    <a href="/addVisits">Add Visit</a>
-    <a href="/logout">Logout</a>
-        
-    
-</body>
-</html>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <h2>Dashboard</h2>
+        <nav>
+        <ul>
+            <li><a href="/addAnimal">Add Animal</a></li>
+            <li><a href="/animalVisits">Animal Profile</a></li>
+            <li><a href="/editAnimal">Update Animal</a></li>
+            <li><a href="/editVisits">Update Animal</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    </aside>
+
+    <main class="main-content">
+        <header class="main-header">
+            <div>
+                <h1>Animals DataBase</h1>
+                <p>Today is, <%= new Date().toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'})%></p>
+            </div>
+
+            <button class="add-button" onclick="window.location.href='/add-animal'">Add Animal</button>
+        </header>
+
+        <section class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>TYPE</th>
+                        <th>BREED</th>
+                        <th>DATE OF BIRTH</th>
+                        <th>ACTION</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% animals.forEach(animal => { %>
+                        <tr>
+                            <td><%= animal.id.toString().padStart(3,'0') %></td>
+                            <td><%= animal.name %></td>
+                            <td><%= animal.type %></td>
+                            <td><%= animal.breed %></td>
+                            <td><%= animal.date_of_birth.toISOString().slice(0,10) %></td>
+                            <td>
+                                <a href="/animal-profile/<%= animal._id %>" class="view-button">View</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </section>
+
+<%-include("partials/footer") %>
