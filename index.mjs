@@ -51,8 +51,23 @@ app.get('/', (req, res) => {
  });
  
 
-app.get('/dashboard', isAuthenticated, (req, res) => {
-        res.render('dashboard.ejs', { username: req.session.username });
+app.get('/dashboard', isAuthenticated, async(req, res) => {
+        let sql = `SELECT * 
+                    FROM owner o JOIN animal a ON o.owner_id = a.owner_id`;
+        const [data] = await conn.query(sql);
+        res.render('dashboard.ejs', { username: req.session.username, data });
+});
+
+app.get('/searchBar', isAuthenticated, async(req, res) => {
+    let searchParam = req.query.search;
+    let sql = `SELECT *
+                FROM owner o JOIN animal a ON o.owner_id = a.owner_id
+                WHERE name LIKE ?
+                    OR breed LIKE ?
+                     OR phone_number LIKE ?`;
+    let sqlParams = [`%${searchParam}%`,`%${searchParam}%`,`%${searchParam}%`]
+    const [data] = await conn.query(sql, sqlParams);
+    res.render('dashboard.ejs', { username: req.session.username, data });
 });
 
 
@@ -149,7 +164,7 @@ app.post('/addAnimal', isAuthenticated, async(req, res) => {
     // change this to select animals
     let name = req.body.name;
     let breed = req.body.breed;
-    let dob = req. body.dob;
+    let dob = req.body.dob;
     let owner = req.body.owner;
  
     let sql = `INSERT INTO animal (name, breed, dob, owner_id) VALUES (?)`;

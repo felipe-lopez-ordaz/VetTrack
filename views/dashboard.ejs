@@ -14,6 +14,15 @@
     <a href="/addVisits">Add Visit</a>
     <a href="/logout">Logout</a>
         
+    <form action="/searchBar">
+        <textarea name="search" cols="100"></textarea>
+        <button>Search</button>
+    </form>
+
+    <% for(let row of data) { %>
+        <span><%=row.animal_id%>, <%=row.name%>, <%=row.breed%>, <%=row.dob%></span>
+        <br><br>
+        <% } %>
     
 </body>
 </html>
