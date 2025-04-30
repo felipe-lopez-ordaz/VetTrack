@@ -7,5 +7,28 @@
 </head>
 <body>
     <h1>Animals</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Breed</th>
+                <th>Date of Birth</th>
+                <th>Owner ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% animals.forEach(animal => { %>
+                <tr>
+                    <td><%= animal.name %></td>
+                    <td><%= animal.breed %></td>
+                    <td><%= animal.dob.toISOString().slice(0,10)  %></td>
+                    <td><%= animal.owner_id %></td>
+                    <td>
+                        <a href="/editAnimal?animal_id=<%= animal.animal_id %>" class="btn btn-warning btn-sm">Update</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
 </body>
 </html>
