@@ -21,6 +21,7 @@
 
     <% for(let row of data) { %>
         <span><%=row.animal_id%>, <%=row.name%>, <%=row.breed%>, <%=row.dob%></span>
+        <a href="/editAnimal?animal_id=<%= row.animal_id %>" >Update</a>
         <br><br>
         <% } %>
     

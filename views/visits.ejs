@@ -7,5 +7,30 @@
 </head>
 <body>
     <h1> Visits</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Visit ID </th>
+                <th>Owner ID </th>
+                <th>Breed</th>
+                <th>Date of Birth</th>
+                <th>Animal Name </th>
+                <th>Visit Date </th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% rows.forEach(row => { %>
+                <tr>
+                    <td><%= row.visit_id %></td>
+                    <td><%= row.owner_id %></td>
+                    <td><%= row.breed %></td>
+                    <td><%= row.dob.toISOString().slice(0,10)  %></td>
+                    <td><%= row.name %></td>
+                    <td><%= row.visit_date.toISOString().slice(0,10)  %></td>
+                    <td><%= row.reason %></td>
+                </tr>
+            <% }) %>
+        </tbody>
 </body>
 </html>

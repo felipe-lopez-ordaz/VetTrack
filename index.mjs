@@ -115,7 +115,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/visits', isAuthenticated, async(req, res) => {
     //change this to select visits
-    let sql = `SELECT visit_id,visit_date,reason,animal_id FROM visit`;
+    let sql = `SELECT visit.visit_id,visit.visit_date,visit.reason,visit.animal_id, animal.breed,animal.dob,animal.owner_id FROM visit JOIN animal ON visit.animal_id = animal.animal_id`;
     const [rows] = await conn.query(sql);
     console.log(rows);
     res.render('visits.ejs', {rows});
