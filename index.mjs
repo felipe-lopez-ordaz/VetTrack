@@ -212,13 +212,25 @@ app.get('/editVisits', isAuthenticated, async (req, res) => {
 
 app.get('/editAnimal', isAuthenticated, async(req, res) => {
     // change this to select animlas
-    let authorId = req.query.authorId;
-    console.log(authorId);
-    let sql = "SELECT authorId,firstName,lastName,dob,dod,biography,sex,portrait,country,profession FROM authors WHERE authorId = ?";
-    const [authorInfo] = await conn.query(sql, [authorId]);
-    console.log(authorInfo);
-    res.render('editAnimal.ejs',{authorInfo});
+    let animalId = req.query.animal_id;
+    let sql = "SELECT * FROM animal WHERE animal_id = ?";
+    const [animalInfo] = await conn.query(sql, [animalId]);
+    animalInfo[0].dob = animalInfo[0].dob.toISOString().slice(0, 10);
+    res.render('editAnimal.ejs',{animalInfo});
  });
+
+ app.post('/editAnimal', isAuthenticated, async(req, res) => {
+    let animalId = req.body.animal_id
+    let name = req.body.name;
+    let breed = req.body.breed;
+    let dob = req.body.dob;
+    let weight = req.body.weight;
+    let sql = `UPDATE animal SET  name = ?, breed = ?, dob = ?, weight = ? WHERE animalId=?`;
+    let sqlParams = [name, breed, dob, weight, animalId];
+    const [rows] = await conn.query(sql, sqlParams);
+    res.redirect('/dashboard');
+ }
+);
 
  //POST
 app.post('/editVisits',isAuthenticated, async(req, res) => {
@@ -237,27 +249,7 @@ app.post('/editVisits',isAuthenticated, async(req, res) => {
     res.redirect('/visits');
  });
 
-app.post('/editAnimal', isAuthenticated, async(req, res) => {
-    // change this to select animals
-    let authorId = req.body.authorId;
-    let fn = req.body.firstName;
-    let ln = req.body.lastName;
-    let dob = req.body.dob;
-    let dod = req.body.dod;
-    let bio = req.body.biography;
-    let sex = req.body.sex;
-    let country = req.body.country;
-    let profession = req.body.profession;
-    let portrait = req.body.portrait;
-    console.log(authorId, fn, ln, dob, bio, sex, country, profession, portrait);
-    let sql = `UPDATE authors SET firstName=?, lastName=?, dob=?, dod=?, biography=?, sex=?, portrait=?, country=?, profession=?  WHERE authorId=?`;
-    //sqlParams order need to match sql statement
-    let sqlParams = [fn, ln, dob, dod, bio, sex, portrait, country, profession, authorId];
-    const [authorInfo] = await conn.query(sql, sqlParams);
-    console.log(authorInfo);
-    res.redirect('/animals');
- }
-);
+
 
 app.post('/deleteAnimal', isAuthenticated, async(req,res) => {
     let authorId = req.body.authorId;
