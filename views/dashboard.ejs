@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% rows.forEach(row => { %>
+                    <% row.forEach(data => { %>
                         <tr>
                             <td><%= row.animalId.toString().padStart(3,'0') %></td>
                             <td><%= row.name %></td>
