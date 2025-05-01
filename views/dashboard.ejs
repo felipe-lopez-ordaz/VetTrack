@@ -22,7 +22,7 @@
                 <p>Today is, <%= new Date().toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'})%></p>
             </div>
 
-            <button class="add-button" onclick="window.location.href='/add-animal'">Add Animal</button>
+            <button class="add-button" onclick="window.location.href='/addAnimal'">Add Animal</button>
         </header>
 
         <section class="table-section">
@@ -31,24 +31,18 @@
                     <tr>
                         <th>ID</th>
                         <th>NAME</th>
-                        <th>TYPE</th>
                         <th>BREED</th>
                         <th>DATE OF BIRTH</th>
-                        <th>ACTION</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <% animals.forEach(animal => { %>
+                    <% rows.forEach(row => { %>
                         <tr>
-                            <td><%= animal.id.toString().padStart(3,'0') %></td>
-                            <td><%= animal.name %></td>
-                            <td><%= animal.type %></td>
-                            <td><%= animal.breed %></td>
-                            <td><%= animal.date_of_birth.toISOString().slice(0,10) %></td>
-                            <td>
-                                <a href="/animal-profile/<%= animal._id %>" class="view-button">View</a>
-                            </td>
+                            <td><%= row.animalId.toString().padStart(3,'0') %></td>
+                            <td><%= row.name %></td>
+                            <td><%= row.breed %></td>
+                            <td><%= row.dob.toISOString().slice(0,10) %></td>
                         </tr>
                         <% }) %>
                 </tbody>
