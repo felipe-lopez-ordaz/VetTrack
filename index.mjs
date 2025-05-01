@@ -114,12 +114,24 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/visits', isAuthenticated, async(req, res) => {
-    //change this to select visits
-    let sql = `SELECT visit.visit_id,visit.visit_date,visit.reason,visit.animal_id, animal.breed,animal.dob,animal.owner_id FROM visit JOIN animal ON visit.animal_id = animal.animal_id`;
-    const [rows] = await conn.query(sql);
+    // //change this to select visits
+    // let sql = `SELECT visit.visit_id,visit.visit_date,visit.reason,visit.animal_id, animal.breed,animal.dob,animal.owner_id FROM visit JOIN animal ON visit.animal_id = animal.animal_id`;
+    // const [rows] = await conn.query(sql);
+    // console.log(rows);
+    // res.render('visits.ejs', {rows});
+    const animalId = req.query.animal_id; // Get the animal_id from the query parameter
+    let sql = `
+        SELECT v.visit_id, v.visit_date, v.reason, a.owner_id, a.breed, a.dob, a.name, a.animal_id
+        FROM visit v
+        JOIN animal a ON v.animal_id = a.animal_id
+        WHERE v.animal_id = ?`;
+    const [rows] = await conn.query(sql, [animalId]);
     console.log(rows);
-    res.render('visits.ejs', {rows});
+    res.render('visits.ejs', { rows });
+
 });
+
+
 
 //display the list of animals
 app.get('/animals', isAuthenticated, async(req, res) => {
@@ -196,6 +208,7 @@ app.get('/editVisits', isAuthenticated, async (req, res) => {
     // Pass all required data to the view
     res.render('editVisits.ejs', { quoteInfo, authors, categories });
 });
+
 
 app.get('/editAnimal', isAuthenticated, async(req, res) => {
     // change this to select animlas
