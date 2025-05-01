@@ -37,12 +37,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% row.forEach(data => { %>
+                    <% data.forEach(data => { %>
                         <tr>
-                            <td><%= row.animalId.toString().padStart(3,'0') %></td>
-                            <td><%= row.name %></td>
-                            <td><%= row.breed %></td>
-                            <td><%= row.dob.toISOString().slice(0,10) %></td>
+                            <td><%= data.animalId.toString().padStart(3,'0') %></td>
+                            <td><%= data.name %></td>
+                            <td><%= data.breed %></td>
+                            <td><%= data.dob.toISOString().slice(0,10) %></td>
                         </tr>
                         <% }) %>
                 </tbody>
