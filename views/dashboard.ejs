@@ -15,11 +15,35 @@
         <button>Search</button>
     </form>
 
-    <% for(let row of data) { %>
-        <span><%=row.animal_id%>, <%=row.name%>, <%=row.breed%>, <%=row.dob%></span>
-        <a href="/visits?animal_id=<%= row.animal_id %>" >View</a>
-        <br><br>
-        <% } %>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Breed</th>
+                <th>Date of Birth</th>
+                <th>Owner ID</th>
+                <th>View Visits</th>
+                <th>Edit Animal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(row => { %>
+                <tr>
+                    <td><%= row.name %></td>
+                    <td><%= row.breed %></td>
+                    <td><%= row.dob.toISOString().slice(0,10)  %></td>
+                    <td><%= row.owner_id %></td>
+                    <td>
+                        <a href="/visits?animal_id=<%= row.animal_id %>" class="btn btn-warning btn-sm">View</a>
+                    </td>
+                    <td>
+                        <a href="/editAnimal?animal_id=<%= row.animal_id %>" class="btn btn-warning btn-sm">Update</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
     
 </body>
 </html>
