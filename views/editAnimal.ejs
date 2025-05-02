@@ -7,6 +7,8 @@
 </head>
 <body>
     <h1> Edit Animal </h1>
+
+    <%- include('partials/navbar') %>
     <form method="POST">
         <input type="hidden" value="<%= animalInfo[0].animal_id%>" name="animal_id">
         Name: <br>
