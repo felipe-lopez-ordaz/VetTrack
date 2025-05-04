@@ -3,47 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Animal Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     <h1>Welcome, <%= username %>!</h1>
-    <%- include('partials/navbar') %>
-
-        
-    <form action="/searchBar">
-        <input type="text" name="search">
-        <button>Search</button>
-    </form>
-
-
-
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Breed</th>
-                <th>Date of Birth</th>
-                <th>Owner ID</th>
-                <th>View Visits</th>
-                <th>Edit Animal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% data.forEach(row => { %>
-                <tr>
-                    <td><%= row.name %></td>
-                    <td><%= row.breed %></td>
-                    <td><%= row.dob.toISOString().slice(0,10)  %></td>
-                    <td><%= row.owner_id %></td>
-                    <td>
-                        <a href="/visits?animal_id=<%= row.animal_id %>" class="btn btn-warning btn-sm">View</a>
-                    </td>
-                    <td>
-                        <a href="/editAnimal?animal_id=<%= row.animal_id %>" class="btn btn-warning btn-sm">Update</a>
-                    </td>
-                </tr>
-            <% }) %>
-        </tbody>
+    <div class="top-navbar">
+        <%- include('partials/navbar') %>
+    </div>
     
-</body>
-</html>
+    <div class="container mt-4">
+        <div class="card bg-dark text-light shadow-lg p-4 rounded">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Animals in Database</h3>
+                <a href="/addAnimal" class="btn btn-warning">Add New Animal</a>
+            </div>
+            <p><%= new Date().toDateString() %></p>
+    
+            <form action="/searchBar" class="form-inline mb-4 d-flex justify-content-center">
+                <input type="text" name="search" class="form-control mr-2 w-50" placeholder="Search by Name or Breed">
+                <button class="btn btn-success">Search</button>
+            </form>
+    
+            <table class="table table-dark table-hover table-bordered text-center">
+                <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>Breed</th>
+                    <th>Date of Birth</th>
+                    <th>Owner ID</th>
+                    <th>View Visits</th>
+                    <th>Edit Animal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.forEach(row => { %>
+                        <tr>
+                            <td><%= row.name %></td>
+                            <td><%= row.breed %></td>
+                            <td><%= new Date(row.dob).toLocaleDateString() %></td>
+                            <td><%= row.owner_id %></td>
+                            <td>
+                                <a href="/visits?animal_id=<%= row.animal_id %>" class="btn btn-success btn-sm">View</a>
+                            </td>
+                            <td>
+                                <a href="/editAnimal?animal_id=<%= row.animal_id %>" class="btn btn-success btn-sm">Update</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <%- include('partials/footer') %>
+    </body>
+    </html>

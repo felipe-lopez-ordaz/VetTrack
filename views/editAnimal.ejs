@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Animal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <h1> Edit Animal </h1>
@@ -21,6 +23,8 @@
         <input type="number" value="<%= animalInfo[0].weight%>" name="weight"><br><br>
         <button>Update</button>
     </form>
+
+    <%- include('partials/footer') %>
 
 </body>
 </html>

@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vetrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <h1>Add Visits</h1>
 
     <%- include('partials/navbar') %>
+
+    <div class="center-container">
+        <div class="form-wrapper">
 
     <form method="POST" action="/addVisits">
     Animal:
@@ -26,5 +31,9 @@
     <br><br>
     <button>Submit</button>
     </form>
+
+</div>
+</div>
+    <%- include('partials/footer') %>
 </body>
 </html>
