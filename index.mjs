@@ -104,8 +104,6 @@ app.post('/login', async (req, res) => {
         req.session.userAuthenticated = true;
         req.session.username = rows[0].username;
         console.log("User: "+req.session.username);
-        //req.session.firstName = rows[0].firstName;s
-        //res.render('dashboard.ejs');
         res.redirect('/dashboard');
     }
     else{
@@ -114,14 +112,11 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/visits', isAuthenticated, async(req, res) => {
-    // //change this to select visits
-    // let sql = `SELECT visit.visit_id,visit.visit_date,visit.reason,visit.animal_id, animal.breed,animal.dob,animal.owner_id FROM visit JOIN animal ON visit.animal_id = animal.animal_id`;
-    // const [rows] = await conn.query(sql);
-    // console.log(rows);
-    // res.render('visits.ejs', {rows});
     const animalId = req.query.animal_id; // Get the animal_id from the query parameter
+    console.log("Animal ID:", animalId); 
+
     let sql = `
-        SELECT v.visit_id, v.visit_date, v.reason, a.owner_id, a.breed, a.dob, a.name, a.animal_id
+        SELECT v.visit_id, v.visit_date, v.reason, a.owner_id, a.breed, a.dob, a.name, a.weight, a.animal_id
         FROM visit v
         JOIN animal a ON v.animal_id = a.animal_id
         WHERE v.animal_id = ?`;
@@ -155,14 +150,12 @@ app.post('/addVisits', isAuthenticated, async(req, res) => {
     let animal = req.body.animal;
     let date = req.body.date;
     let reason = req.body.reason;
-
-
-
     let sql = `INSERT INTO visit (animal_id,visit_date,reason) VALUES (?, ?,?)`;
     let sqlParams = [animal, date, reason];
     const [rows] = await conn.query(sql, sqlParams);
+    console.log(rows);
 
-    res.redirect('/visits');
+    res.redirect('/visits?animal_id='+animal);
  });
 
 app.get('/addAnimal', isAuthenticated, async(req, res) => {
@@ -178,36 +171,14 @@ app.post('/addAnimal', isAuthenticated, async(req, res) => {
     let breed = req.body.breed;
     let dob = req.body.dob;
     let owner = req.body.owner;
- 
-    let sql = `INSERT INTO animal (name, breed, dob, owner_id) VALUES (?)`;
-    let sqlParams = [[name, breed, dob, owner]];
+    let weight = req.body.weight;
+    console.log(name, breed, dob, owner,weight);
+    let sql = `INSERT INTO animal (name, breed, dob, owner_id, weight) VALUES (?, ?, ?, ?, ?)`;
+    let sqlParams = [name, breed, dob, owner, weight];
     const [rows] = await conn.query(sql, sqlParams);
-
-  res.redirect('/animals');
+    console.log(rows);
+  res.redirect('/dashboard');
  });
-
- //GET
-app.get('/editVisits', isAuthenticated, async (req, res) => {
-    // change this to select visits
-    let quoteId = req.query.quoteId;
-    console.log(quoteId);
-    
-    let sql = "SELECT quoteId, quote, authorId, category, likes FROM quotes WHERE quoteId = ?";
-    const [quoteInfo] = await conn.query(sql, [quoteId]);
-
-    let sql2 = "SELECT authors.authorId, authors.firstName, authors.lastName FROM authors ORDER BY authors.lastName";
-    const [authors] = await conn.query(sql2);
-    
-    let sql3 = "SELECT DISTINCT category FROM quotes";
-    const [categories] = await conn.query(sql3);
-
-    console.log(authors);
-    console.log(categories);
-    console.log(quoteInfo);
-
-    // Pass all required data to the view
-    res.render('editVisits.ejs', { quoteInfo, authors, categories });
-});
 
 
 app.get('/editAnimal', isAuthenticated, async(req, res) => {
@@ -225,30 +196,12 @@ app.get('/editAnimal', isAuthenticated, async(req, res) => {
     let breed = req.body.breed;
     let dob = req.body.dob;
     let weight = req.body.weight;
-    let sql = `UPDATE animal SET  name = ?, breed = ?, dob = ?, weight = ? WHERE animalId=?`;
+    let sql = `UPDATE animal SET  name = ?, breed = ?, dob = ?, weight = ? WHERE animal_id=?`;
     let sqlParams = [name, breed, dob, weight, animalId];
     const [rows] = await conn.query(sql, sqlParams);
     res.redirect('/dashboard');
  }
 );
-
- //POST
-app.post('/editVisits',isAuthenticated, async(req, res) => {
-    // change this to select visits
-    let quoteId = req.body.quoteId;
-    let quote = req.body.quote;
-    let authorId = req.body.authorId;
-    let category = req.body.category;
-    let likes = req.body.likes;
-    console.log(quoteId, quote, authorId, category, likes);
-    let sql = `UPDATE quotes SET quote=?, authorId=?, category=?, likes=? WHERE quoteId=?`;
-    //sqlParams order need to match sql statement
-    let sqlParams = [quote, authorId, category, likes, quoteId,];
-    const [quoteInfo] = await conn.query(sql, sqlParams);
-    console.log(quoteInfo);
-    res.redirect('/visits');
- });
-
 
 
 app.post('/deleteAnimal', isAuthenticated, async(req,res) => {
