@@ -9,8 +9,6 @@
     <h1>Welcome, <%= username %>!</h1>
     <%- include('partials/navbar') %>
 
-    <a href="/animals">View Animals</a>
-    <a href="/visits">View Visits</a>
     <a href="/addAnimal">Add Animal</a>
     <a href="/addVisits">Add Visit</a>
     <a href="/logout">Logout</a>
@@ -21,7 +19,7 @@
     </form>
 
     <% for(let row of data) { %>
-        <span><%=row.animal_id%>, <%=row.name%>, <%=row.breed%>, <%=row.dob%></span>
+        <span><%=row.animal_id%>, <%=row.name%>, <%=row.breed%>, <%=row.dob%>, <%=row.weight%>, <%row.phone_number%> </span>
         <a href="/visits?animal_id=<%= row.animal_id %>" >View</a>
         <br><br>
         <% } %>

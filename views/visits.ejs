@@ -16,6 +16,7 @@
                 <th>Owner ID</th>
                 <th>Breed</th>
                 <th>Date of Birth</th>
+                <th>Weight</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                     <td><%= rows[0].owner_id %></td>
                     <td><%= rows[0].breed %></td>
                     <td><%= rows[0].dob.toISOString().slice(0, 10) %></td>
+                    <td><%= rows[0].weight %></td>
                     <td>
                         <a href="/editAnimal?animal_id=<%= rows[0].animal_id %>" >Update</a>
                     </td>
