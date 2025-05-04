@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Visits</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <%- include('partials/navbar') %>
     <h1>Visit History for <%= rows.length > 0 ? rows[0].name : "Animal" %></h1>
-    <table>
+
+        <%- include('partials/navbar') %>
+
+        <div class="container mt-4">
+            <div class="card bg-dark text-light shadow-lg p-4 rounded">
+                <h3 class="mb-4"><%= rows.length > 0 ? rows[0].name : "Animal" %></h3>
+
+     <table>
         <thead>
             <tr>
                 <th>Animal ID</th>
@@ -71,5 +79,8 @@
             <% } %>
         </tbody>
     </table>
+    </div>
+    </div>
+    <%- include('partials/footer') %>
 </body>
 </html>
