@@ -6,6 +6,11 @@ body {
 .text-center{
     text-align: center;
 }
+.custom-error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
 
 
 h1{
