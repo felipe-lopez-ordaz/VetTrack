@@ -3,6 +3,9 @@ body {
     color: rgb(42, 189, 215);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.text-center{
+    text-align: center;
+}
 
 
 h1{
