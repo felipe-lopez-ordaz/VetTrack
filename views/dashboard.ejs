@@ -30,7 +30,7 @@
                     <th>Name</th>
                     <th>Breed</th>
                     <th>Date of Birth</th>
-                    <th>Owner ID</th>
+                    <th>Owner Phone Number</th>
                     <th>View Visits</th>
                     <th>Edit Animal</th>
                     </tr>
@@ -41,7 +41,7 @@
                             <td><%= row.name %></td>
                             <td><%= row.breed %></td>
                             <td><%= new Date(row.dob).toLocaleDateString() %></td>
-                            <td><%= row.owner_id %></td>
+                            <td><%= row.phone_number %></td>
                             <td>
                                 <a href="/visits?animal_id=<%= row.animal_id %>" class="btn btn-success btn-sm">View</a>
                             </td>

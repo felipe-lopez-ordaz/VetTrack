@@ -137,6 +137,24 @@ app.get('/animals', isAuthenticated, async(req, res) => {
     res.render('animals.ejs', {animals});
  });
 
+ app.get('/addOwner', isAuthenticated, async(req, res) => {
+    //change this to select visits
+
+    res.render('addOwner.ejs')
+ }
+);
+
+app.post('/addOwner', isAuthenticated, async(req, res) => {
+    let phone = req.body.phone;
+    let address = req.body.address;
+    let sql = `INSERT INTO owner (phone_number, address) VALUES (?, ?)`;
+    let sqlParams = [phone, address];
+    const [rows] = await conn.query(sql, sqlParams);
+    console.log(rows);
+
+    res.redirect('/dashboard');
+ });
+
 app.get('/addVisits', isAuthenticated, async(req, res) => {
     //change this to select visits
     let sql = 'SELECT * FROM animal'
