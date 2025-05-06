@@ -6,6 +6,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container {
+            text-align: center;
+            flex: 1;
+        }
+        img {
+            max-width: 300px;
+            height: 300px;
+            display: none;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+        button {
+            margin-top: 10px;
+        }
+        #catImageContainer {
+            justify-content: flex-start; /* Pushes cat image to the left */
+        }
+        #dogImageContainer {
+            justify-content: flex-end; /* Pushes dog image to the right */
+        }
+    </style>
 </head>
 <body>
     <%- include("partials/header") %>
@@ -21,6 +50,49 @@
     <% if (typeof error !== 'undefined'){ %>
         <p style="color:red;"><%= error %></p>
     <% } %>
+
+    <br>
+<!-- Images side by side -->
+<div class="container">
+    <!-- Cat Image -->
+    <div class = "image-container" id = "catImageContainer">
+        <img id = "catImage" src="" alt="Random Cat">
+        <button id = "fetchCatImage" class = "btn btn-primary"> Random Cat Image </button>
+    </div>
+
+    <!-- Dog Image -->
+    <div class = "image-container" id = "dogImageContainer">
+        <img id = "dogImage" src="" alt="Random Dog">
+        <button id = "fetchDogImage" class = "btn btn-primary"> Random Dog Image </button>
+    </div>
+</div>
+
+<script>
+    document.getElementById("fetchDogImage").addEventListener("click", function() {
+        getRandomDogImage();
+        document.getElementById("dogImage").style.display = "block";
+    });
+
+    document.getElementById("fetchCatImage").addEventListener("click", function() {
+        getRandomCatImage();
+        document.getElementById("catImage").style.display = "block";
+    });
+
+    async function getRandomDogImage() {
+        let url = "https://dog.ceo/api/breeds/image/random"; 
+        let response = await fetch(url);
+        let data = await response.json();
+        document.getElementById("dogImage").src = data.message;
+    }
+
+   async function getRandomCatImage() {
+    let url = "https://cataas.com/cat?json=true"; 
+    let response = await fetch(url);
+    let data = await response.json();
+    document.getElementById("catImage").src = data.url;
+}
+    </script>
+    <br>
 
     <%-include("partials/footer") %>
     

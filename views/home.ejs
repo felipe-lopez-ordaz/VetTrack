@@ -21,6 +21,38 @@
             <em>Loading Animal fun fact...</em>
         </div>
 
+       <script>
+        async function catFacts() {
+           let catUrl = "https://catfact.ninja/fact"; 
+                try {
+                let response = await fetch(catUrl);
+                let data = await response.json();
+                document.getElementById("fun-fact").innerHTML = `<em>${data.fact}</em>`;
+            } catch (error) {
+                document.getElementById("fun-fact").innerHTML = "<em>Failed to fetch the fun fact.</em>";
+                console.error("Error fetching cat facts:", error);
+            }
+    }
+    window.onload = catFacts;
+    </script>
+    <br>
+
+   <!-- <script>
+    async function dogFacts() {
+        let dogUrl = "https://dog-api.kinduff.com/api/facts";
+        try{ let response = await fetch(dogUrl);
+            let data = await response.json();
+        document.getElementById("fun-fact").innerHTML += `<br><em>${data.facts[0]}</em>`;
+        }
+        catch (error) {
+            document.getElementById("fun-fact").innerHTML += "<br><em>Failed to fetch the dog fact.</em>";
+            console.error("Error fetching dog facts:", error);
+        }
+    }
+
+    window.onload = dogFacts; 
+    </script>-->
+
         <div class="nav-links">
             <a href="/login">Login</a> 
         </div>
