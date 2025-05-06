@@ -118,8 +118,8 @@ app.get('/visits', isAuthenticated, async(req, res) => {
     let sql = `
         SELECT v.visit_id, v.visit_date, v.reason, a.owner_id, a.breed, a.dob, a.name, a.weight, a.animal_id
         FROM visit v
-        JOIN animal a ON v.animal_id = a.animal_id
-        WHERE v.animal_id = ?`;
+        RIGHT JOIN animal a ON v.animal_id = a.animal_id
+        WHERE a.animal_id = ?`;
     const [rows] = await conn.query(sql, [animalId]);
     console.log(rows);
     res.render('visits.ejs', { rows });

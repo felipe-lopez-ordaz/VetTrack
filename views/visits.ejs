@@ -12,16 +12,21 @@
 
         <%- include('partials/navbar') %>
 
+        <% if (rows && rows.length > 0) { %>
+            <input type="hidden" value="<%= rows[0].breed %>" id="animalBreed">
+        <% } %>
+
         <div class="container mt-4">
             <div class="card bg-dark text-light shadow-lg p-4 rounded">
                 <h3 class="mb-4"><%= rows.length > 0 ? rows[0].name : "Animal" %></h3>
+                <img src="" id="animalImage">
 
      <table>
         <thead>
             <tr>
                 <th>Animal ID</th>
                 <th>Name</th>
-                <th>Owner ID</th>
+                <th>Owner Phone Number</th>
                 <th>Breed</th>
                 <th>Date of Birth</th>
                 <th>Weight</th>
@@ -33,7 +38,7 @@
                 <tr>
                     <td><%= rows[0].animal_id %></td>
                     <td><%= rows[0].name %></td>
-                    <td><%= rows[0].owner_id %></td>
+                    <td><%= rows[0].phone_number %></td>
                     <td><%= rows[0].breed %></td>
                     <td><%= rows[0].dob.toISOString().slice(0, 10) %></td>
                     <td><%= rows[0].weight %></td>
@@ -53,21 +58,15 @@
         <thead>
             <tr>
                 <th>Visit ID</th>
-                <th>Owner ID</th>
-                <th>Breed</th>
-                <th>Date of Birth</th>
                 <th>Visit Date</th>
                 <th>Reason</th>
             </tr>
         </thead>
         <tbody>
-            <% if (rows.length > 0) { %>
+            <% if (rows[0].visit_id) { %>
                 <% rows.forEach(row => { %>
                     <tr>
                         <td><%= row.visit_id %></td>
-                        <td><%= row.owner_id %></td>
-                        <td><%= row.breed %></td>
-                        <td><%= row.dob.toISOString().slice(0, 10) %></td>
                         <td><%= row.visit_date.toISOString().slice(0, 10) %></td>
                         <td><%= row.reason %></td>
                     </tr>
@@ -82,5 +81,7 @@
     </div>
     </div>
     <%- include('partials/footer') %>
+
+    <script src = /js/showAnimal.js></script>
 </body>
 </html>

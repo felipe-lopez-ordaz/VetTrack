@@ -21,20 +21,19 @@
         <div class="bg-dark text-light p-3 rounded">
 
        <div class="fun-fact-box border border-success rounded p-4 mb-5">
-        <h4 class="text-success">Did you Know?</h4>
-        <div id="fun-fact" class="bg-dark text-light p-3 rounded">
-            </div>
+            <h4 class="text-success">Did you Know?</h4>
+                <div id="fun-fact" class="bg-dark text-light p-3 rounded"> </div>
        </div>
 
        <div class="row text-center mb-5">
        <div class="col-md-6">
-        <button id="fetchDogImage" class="btn btn-warning fw-bold">Show a Dog!</button>
+        <button id="fetchDogImage" class="btn btn-warning fw-bold">Random Dog</button>
         <div class="mb-3 justify-content-center">
             <img id="dogImage" src="" alt="random dog" class="img-fluid rounded mt-3">
         </div>
        </div>
          <div class="col-md-6">
-          <button id="fetchCatImage" class="btn btn-warning fw-bold">Show a Cat!</button>
+          <button id="fetchCatImage" class="btn btn-warning fw-bold">Random Cat</button>
           <div class="mb-3 justify-content-center">
                 <img id="catImage" src="" alt="random cat" class="img-fluid rounded mt-3">
           </div>
@@ -51,43 +50,6 @@
     <%-include("partials/footer") %>
     
 
-    <script>
-        document.getElementById("fetchDogImage").addEventListener("click", function() {
-            getRandomDogImage();
-            document.getElementById("dogImage").style.display = "block";
-        });
-
-        document.getElementById("fetchCatImage").addEventListener("click", function() {
-        getRandomCatImage();
-        document.getElementById("catImage").style.display = "block";
-    });
-
-        async function getRandomDogImage() {
-        let url = "https://dog.ceo/api/breeds/image/random"; 
-        let response = await fetch(url);
-        let data = await response.json();
-        document.getElementById("dogImage").src = data.message;
-    }
-
-    async function getRandomCatImage() {
-    let url = "https://cataas.com/cat?json=true"; 
-    let response = await fetch(url);
-    let data = await response.json();
-    document.getElementById("catImage").src = data.url;
-}
-
-        async function catFacts() {
-           let catUrl = "https://catfact.ninja/fact"; 
-                try {
-                let response = await fetch(catUrl);
-                let data = await response.json();
-                document.getElementById("fun-fact").innerHTML = `<em>${data.fact}</em>`;
-            } catch (error) {
-                document.getElementById("fun-fact").innerHTML = "<em>Failed to fetch the fun fact.</em>";
-                console.error("Error fetching cat facts:", error);
-            }
-    }
-    window.onload = catFacts;
-    </script>
+    <script src = /js/apis.js></script>
 </body>
 </html>

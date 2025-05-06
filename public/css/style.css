@@ -180,13 +180,7 @@ td{
     background-color: #0f1e0f;
   }
   
-  #dogImage {
-    border: 5px solid #06f0d5;
-    display: none;
-    max-height: 500px;
-    max-width: 500px;
-  }
-
+ 
   #fetchDogImage {
     background-color: #06f0d5;
   }
@@ -195,11 +189,20 @@ td{
     background-color: #06f0d5;
   }
 
-
+  #dogImage {
+    border: 5px solid #06f0d5;
+    max-height: 500px;
+    max-width: 500px;
+  }
 
   #catImage {
     border: 5px solid #06f0d5;
-    display: none;
+    max-height: 500px;
+    max-width: 500px;
+  }
+
+  #animalImage{
+    margin: auto;
     max-height: 500px;
     max-width: 500px;
   }
