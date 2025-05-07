@@ -116,9 +116,9 @@ app.get('/visits', isAuthenticated, async(req, res) => {
     console.log("Animal ID:", animalId); 
 
     let sql = `
-        SELECT v.visit_id, v.visit_date, v.reason, a.owner_id, a.breed, a.dob, a.name, a.weight, a.animal_id
+        SELECT v.visit_id, v.visit_date, v.reason, o.phone_number, a.breed, a.dob, a.name, a.weight, a.animal_id
         FROM visit v
-        RIGHT JOIN animal a ON v.animal_id = a.animal_id
+        RIGHT JOIN animal a ON v.animal_id = a.animal_id JOIN o.owner_id = a.owner_id
         WHERE a.animal_id = ?`;
     const [rows] = await conn.query(sql, [animalId]);
     console.log(rows);
