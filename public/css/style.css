@@ -1,3 +1,93 @@
+/* Modern glassmorphism effect for cards */
+.bg-glass {
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(42, 189, 215, 0.2);
+}
+
+/* Gradient text for headings */
+.gradient-text {
+    background: linear-gradient(90deg, #6cf0d8, #25b7c5, #06f0d5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Stylish login button */
+.btn-gradient {
+    background: linear-gradient(90deg, #25b7c5 0%, #06f0d5 100%);
+    color: #121212;
+    border: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    font-weight: bold;
+    border-radius: 2rem;
+}
+.btn-gradient:hover {
+    background: linear-gradient(90deg, #06f0d5 0%, #25b7c5 100%);
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba(42, 189, 215, 0.2);
+}
+
+/* Fun fact box styling */
+.fun-fact-box {
+    background: linear-gradient(135deg, #0f1e0f 80%, #25b7c5 100%);
+    color: #fff;
+    border-left: 6px solid #06f0d5;
+}
+
+/* Responsive image styling */
+#dogImage, #catImage {
+    border: 4px solid #06f0d5;
+    max-height: 250px;
+    max-width: 100%;
+    object-fit: cover;
+    background: #222;
+}
+
+/* General improvements */
+body {
+    background: linear-gradient(120deg, #121212 60%, #25b7c5 100%);
+    color: #e6f7fa;
+    min-height: 100vh;
+}
+
+.card {
+    border-radius: 1.5rem;
+}
+
+h1, h4 {
+    letter-spacing: 1px;
+}
+
+.nav-links .btn {
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 2rem;
+}
+.custom-footer{
+    text-align: center;
+    padding: 20px 10px;
+    border-top: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    margin-top: 400px;
+    color: white;
+}
+
+.custom-footer p{
+    margin: 6px;
+    transition: color 0.3s;
+
+
+}
+
+.custom-footer p:hover{
+    color: #35aeb9;
+}
+
+
 body {
     background-color: #121212;
     color: rgb(42, 189, 215);
@@ -74,22 +164,6 @@ td{
     background-color: #00eaff;
 }
 
-.nav-links{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-links li{
-    margin: 10px 0;
-}
-.nav-links a{
-    text-decoration: none;
-    color: #ffffff;
-    padding: 10px;
-    display: block;
-    border-radius: 5px;
-}
 
 .logout-link {
     color: #f64444;
@@ -153,56 +227,3 @@ td{
     font-weight: bold;
     padding: 10px;
 }
-
-.custom-footer{
-    background-color: #ccc;
-    text-align: center;
-    padding: 20px 10px;
-    border-top: whitesmoke;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: small;
-    margin-top: 400px;
-    color: #1c1c1c;
-}
-
-.custom-footer p{
-    margin: 6px;
-    transition: color 0.3s;
-
-
-}
-
-.custom-footer p:hover{
-    color: #35aeb9;
-}
-
-.fun-fact-box {
-    background-color: #0f1e0f;
-  }
-  
- 
-  #fetchDogImage {
-    background-color: #06f0d5;
-  }
-
-  #fetchCatImage {
-    background-color: #06f0d5;
-  }
-
-  #dogImage {
-    border: 5px solid #06f0d5;
-    max-height: 500px;
-    max-width: 500px;
-  }
-
-  #catImage {
-    border: 5px solid #06f0d5;
-    max-height: 500px;
-    max-width: 500px;
-  }
-
-  #animalImage{
-    margin: auto;
-    max-height: 500px;
-    max-width: 500px;
-  }
